@@ -94,7 +94,7 @@
   </div>
   <div id="react-render-root"></div>
   <div id="react-overlay-root"></div>
-  <iframe id="showcase" width="740" height="480" src="https://my.matterport.com/show/?m=tCsMVKKJeW5&applicationKey=gq59t06h713y2hrsw35cmkutc" frameborder=”0” allowfullscreen allow="vr"></iframe>
+  <iframe id="showcase" width="740" height="480" src="/bundle/showcase.html?m=tCsMVKKJeW5&applicationKey=gq59t06h713y2hrsw35cmkutc" frameborder=”0” allowfullscreen allow="vr"></iframe>
 </main>
 
 </section>
@@ -103,29 +103,31 @@
 <script src='js/browser-check.js'></script>
 <script src='js/showcase.js'></script>
 <script>
+  console.log("@@@@@@@@@@@")
   var detailObject = {
     config: {"apiHost":"https://my.matterport.com","pointerPreventDefault":false,"disableMobileRedirect":true}
   };
-
+  
   if (mpBrowserCheck.supported()) {
     window.dispatchEvent(new CustomEvent('app-start', { detail: detailObject }));
   } else {
     mpBrowserCheck.displayErrorPage('showcase');
   }
+  
   const showcase = document.getElementById('showcase');
-const showcaseWindow = showcase.contentWindow;
-showcase.addEventListener('load', async function() {
-  let mpSdk;
-  try {
-    mpSdk = await showcaseWindow.MP_SDK.connect(showcaseWindow);
-  }
-  catch(e) {
-    console.error(e);
-    return;
-  }
+  const showcaseWindow = showcase.contentWindow;
+  showcase.addEventListener('load', async function() {
+    let mpSdk;
+    try {
+      mpSdk = await showcaseWindow.MP_SDK.connect(showcaseWindow);
+    }
+    catch(e) {
+      console.error(e);
+      return;
+    }
+    console.log('Hello Bundle SDK', mpSdk);
 
-  console.log('Hello Bundle SDK', mpSdk);
-});
+  });
 </script>
 </body>
 </html>
