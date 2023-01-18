@@ -94,6 +94,7 @@
   </div>
   <div id="react-render-root"></div>
   <div id="react-overlay-root"></div>
+  <iframe id="showcase" width="740" height="480" src="https://my.matterport.com/show/?m=tCsMVKKJeW5&applicationKey=gq59t06h713y2hrsw35cmkutc" frameborder=”0” allowfullscreen allow="vr"></iframe>
 </main>
 
 </section>
@@ -111,6 +112,20 @@
   } else {
     mpBrowserCheck.displayErrorPage('showcase');
   }
+  const showcase = document.getElementById('showcase');
+const showcaseWindow = showcase.contentWindow;
+showcase.addEventListener('load', async function() {
+  let mpSdk;
+  try {
+    mpSdk = await showcaseWindow.MP_SDK.connect(showcaseWindow);
+  }
+  catch(e) {
+    console.error(e);
+    return;
+  }
+
+  console.log('Hello Bundle SDK', mpSdk);
+});
 </script>
 </body>
 </html>
